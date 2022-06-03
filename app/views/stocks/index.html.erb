@@ -1,0 +1,53 @@
+
+<div class = table>
+<table>
+  <tr>
+  <th>ID</th>
+  <th>製品番号</th>
+  <th>在庫量</th>
+  <th>注文数</th>
+  <th>入庫数</th>
+  </tr>
+<% @stocks.each do |stock| %>
+   <tr>
+  <th><%= stock.id %></th>
+  <th><%= stock.item_number %></th>
+  <th><%= stock.stock_amount %></th>
+  <% if @order.order_number == stock.item_number %>
+  <th><%= @order.order_amount %></th>
+  <% end %>
+  <th id="toStoreAmount"></th>
+  </tr>
+<% end %>
+</table>
+</div>
+
+
+<% if @order  %>
+   <div class="item-number">
+    <h2 class="items-sell-title">注文を受け入れ</h2>
+    <%= form_with  model:[@order,@stock]  ,local: true do |f| %>
+     <div class="sell-btn-contents">
+      <%= f.submit "受け入れ" ,class:"sell-btn" %>
+     </div>
+     <% end  %>
+    <div>
+    <%= link_to "注文を受け付けない", order_path(@order.id), method: :delete %>
+    </div>
+
+<% else %>
+    <div class="item-number">
+      <h2 class="items-sell-title">出荷指示</h2>
+      <%= form_with model:[@order,@stock] ,local: true do |f| %>
+      <div class="sell-btn-contents">
+       <%= f.submit "出荷指示" ,class:"sell-btn" %>
+      </div>
+      <% end %>
+    </div> 
+
+<% end %>
+
+<div class="item-number">
+      <h2 id="items-stock-title" class="items-sell-title"><button id="to-store-button">入庫処理</button></h2>
+ </div>
+

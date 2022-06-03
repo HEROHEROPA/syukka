@@ -1,0 +1,32 @@
+<div class = table>
+<table>
+  <tr>
+  <th>ID</th>
+  <th>製品番号</th>
+  <th>在庫量</th>
+  <th>注文数</th>
+  <th>入庫数</th>
+  </tr>
+<% @stocks.each do |stock| %>
+   <tr>
+  <th><%= stock.id %></th>
+  <th><%= stock.item_number %></th>
+  <th><%= stock.stock_amount %></th> 
+  </tr>
+<% end %>
+</table>
+</div>
+
+
+
+<div class="item-number">
+    <h2 class="items-sell-title">出荷指示</h2>
+    <%= form_with model:[@order,@shipping] ,local: true do |f| %>
+    <%# modelオプションはテーブル側に保存するカラムが無いとインスタンスを指定できない。 %>
+   <%# <%=render 'shared/error_messages', model: f.object %> 
+      <div class="sell-btn-contents"> 
+      <%= f.submit "出荷指示" ,class:"sell-btn" %> 
+     </div>
+  <% end %>  
+ </div>      
+

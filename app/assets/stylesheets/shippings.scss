@@ -1,0 +1,36 @@
+// Place all the styles related to the shippings controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+    // .item-img-content{}
+    .body{background-color: darkolivegreen;
+          display:flex;
+          flex-direction:column;
+          justify-content:center;
+    }
+    .item-img-content{text-align:center;
+                      margin: 0 auto;
+                     }
+
+    .item-main-img{height:60vh;
+                   width:50vw;}
+
+
+    .item-text{font-size:50px;
+               font-weight:bolder;
+               height:100px;
+               width:50vw;
+               text-align:center;
+              //  margin-bottom:10px;
+               margin: 0 auto;
+               background-color:cornsilk;}
+ 
+    .confirm-point{color:red;
+                   height:50px;
+                   width:50vw;
+                  //  margin-bottom:10px;
+                   margin: 0 auto;
+                   text-align:center;
+                   background-color: burlywood;}
+ 

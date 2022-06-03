@@ -1,0 +1,21 @@
+<div class = shippingtable>
+<table>
+  <tr>
+  <th>出荷ID</th>
+  <th>注文番号</th>
+  <th>注文数</th>
+  <th>製品番号</th>
+  </tr>
+  <% @shippings.each do |shipping| %>
+   <tr>
+  <th><%= shipping.id %></th>
+  <th><%= shipping.order_id %></th>
+  <th><%= Order.find(shipping.order_id).order_amount %></th>
+  <th><%= link_to Config.find(shipping.config_id)[:item_number] , "shippings/#{shipping.id}" %></th>
+  <% end %>
+  </tr>
+</table>  
+
+<%= link_to "注文へ戻る", root_path, method: :get %>
+
+</div>

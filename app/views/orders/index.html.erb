@@ -1,0 +1,14 @@
+<div class="item-number">
+    <h2 class="items-sell-title">商品名を入力</h2>
+    <%= form_with model:@order ,local: true do |f| %>
+
+    <%= f.text_area :order_number, class:"order-text", id:"order-number", placeholder:"商品名", maxlength:"20" %>
+     <div>
+     <%= f.text_area :order_amount, class:"order-text", id:"order-amount", placeholder:"数量", maxlength:"2" %>
+     </div>
+    <div class="sell-btn-contents">
+      <%= f.submit "注文" ,class:"sell-btn" %>
+    </div>
+    <% end %>
+
+</div>    
