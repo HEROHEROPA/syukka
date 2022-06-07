@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_24_021624) do
+ActiveRecord::Schema.define(version: 2022_06_03_104501) do
 
   create_table "orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "order_number", null: false
@@ -36,5 +36,14 @@ ActiveRecord::Schema.define(version: 2022_05_24_021624) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "to_stocks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "stock_id", null: false
+    t.integer "to_stock_amount", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["stock_id"], name: "index_to_stocks_on_stock_id"
+  end
+
   add_foreign_key "shippings", "orders"
+  add_foreign_key "to_stocks", "stocks"
 end

@@ -1,0 +1,21 @@
+<div class = shippingtable>
+<table>
+  <tr>
+  <th>入庫ID</th>
+  <th>在庫番号</th>
+  <th>入庫数</th>
+  <th>商品名</th>
+  </tr>
+  <% @to_stocks.each do |to_stock| %>
+   <tr>
+  <th><%= to_stock.id %></th>
+  <th><%= to_stock.stock_id %></th>
+  <th><%= to_stock.to_stock_amount %></th>
+  <th><%= to_stock.stock.item_number %></th>
+  <% end %>
+  </tr>
+</table>  
+
+<%= link_to "在庫一覧へ戻る", to_stocks_path, method: :post %>
+
+</div>
