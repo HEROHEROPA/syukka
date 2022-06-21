@@ -31,8 +31,7 @@ class ToStocksController < ApplicationController
     if stock.item_number==@order.order_number
       @stock = Stock.find(stock.id)#オーダー商品在庫  viewのモデルオプション指定に必要
     end
-   end 
-
+  end 
    render "/to_stocks/create.html.erb"
   end
 

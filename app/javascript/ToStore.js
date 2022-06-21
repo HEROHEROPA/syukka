@@ -68,16 +68,16 @@ function ToStore(){
             const token = document.getElementsByName("csrf-token")[0].content;//＊javascriptのみでサーバー送信を行う場合トークンを付与して送信する必要がある。左記はそのトークンを取得するための記述。
 
             XHR.responseType = "json";
-            let order_id = location.pathname.split("/")[2] 
+            let order_id = location.pathname.split("/")[2] //アドレスバーからid ナンバーを取得
 
             XHR.open("POST", `/orders/${order_id}/to_stocks`, true);
-
+            XHR.onload = function(e){if(XHR.status===200){location.reload()}}//ページのリロードをjs側で行わないとサーバー側にリクエストを出していてもサーバー側のレスポンスでページ更新されない。
+           //onloadは通信が完了した際に呼ばれる。そのため、そこに実行させたい関数を代入することで非同期で関数が実行される。
             XHR.setRequestHeader('X-CSRF-Token', token)//61行目で取得したトークンをリクエスト送信のヘッダーに含めるための記述。
 
-            XHR.send(formDates)//トークンを含めた状態でデータを送信する。
-
             haveToStoreAmount.innerText=""
-
+            XHR.send(formDates) //トークンを含めた状態でデータを送信する。
+           
           })
         } 
 
