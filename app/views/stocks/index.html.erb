@@ -36,15 +36,15 @@
     <%= link_to "注文を受け付けない", order_path(@order.id), method: :delete %>
     </div>
 
-<% else %>
-    <div class="item-number">
-      <h2 class="items-sell-title">出荷指示</h2>
-      <%= form_with model:[@order,@stock] ,local: true do |f| %>
-      <div class="sell-btn-contents">
-       <%= f.submit "出荷指示" ,class:"sell-btn" %>
-      </div>
-      <% end %>
-    </div> 
+<%# <% else %> 
+    <%# <div class="item-number"> %>
+      <%# <h2 class="items-sell-title">出荷指示</h2> %>
+      <%# <%= form_with model:[@order,@stock] ,local: true do |f| %> 
+      <%# <div class="sell-btn-contents"> %>
+       <%# <%= f.submit "出荷指示" ,class:"sell-btn" %> 
+      <%# </div> %>
+      <%# <% end %> 
+    <%# </div>  %>
 
 <% end %>
 
@@ -54,7 +54,7 @@
 
 <div class="item-number">
       <%# <h2 class="items-sell-title">入庫履歴</h2> %>
-<button><%= link_to "入庫履歴ページ", to_stocks_path, method: :get %></button>
+<button><%= link_to "入庫履歴ページ", order_to_stocks_path, method: :get %></button>
       
 </div> 
 

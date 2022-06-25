@@ -9,14 +9,19 @@
   </tr>
 <% @stocks.each do |stock| %>
    <tr>
-  <th><%= stock.id %></th>
-  <th><%= stock.item_number %></th>
-  <th><%= stock.stock_amount %></th> 
+  <th><%= stock.id%>
+  <th class="toStoreName"><%= stock.item_number%>
+  <th><%= stock.stock_amount%>
+   <th>
+    <%# <% if @order.order_number == stock.item_number%> 
+        <%# <%= @order.order_amount%>  
+       <%# <% end %> 
+  </th>
+  <th class="toStoreAmount"></th>
   </tr>
-<% end %>
+<% end%> 
 </table>
 </div>
-
 
 
 <div class="item-number">
@@ -30,11 +35,14 @@
   <% end %>  
  </div>      
 
+
+
+
+<%# <div class="item-number">
+      <h2 id="items-stock-title" class="items-sell-title"><button id="to-store-button">入庫処理</button></h2>
+ </div> %>
+
 <div class="item-number">
-      <%# <h2 class="items-sell-title">入庫履歴</h2> %>
-     <div class="item-number">
-      <%# <h2 class="items-sell-title">入庫履歴</h2> %>
-<button><%= link_to "入庫履歴ページ", "/orders/#{@order.id}/stocks/#{@to_stock.id}/to_stocks", method: :get %></button>
+<button><%= link_to "入庫履歴ページ", order_to_stocks_path, method: :get %></button>
       
 </div> 
-    </div> 

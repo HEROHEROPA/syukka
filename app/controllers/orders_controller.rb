@@ -5,7 +5,11 @@ def index
 end
 
 def create
-  @order = Order.new(get_order)
+  if params[:format]
+    @order = Order.find(params[:format])#  入庫一覧からのリンク
+  else  
+    @order = Order.new(get_order)#オーダーからのリクエスト
+  end 
   @stocks = Stock.all
   
   if @order

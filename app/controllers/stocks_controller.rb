@@ -50,8 +50,8 @@ class StocksController < ApplicationController
       @stocks = Stock.all
       @shipping = Shipping.new
    end 
-   
   #  render  "orders/index"
+  @to_stock= stock
    end
    
    
@@ -60,6 +60,13 @@ class StocksController < ApplicationController
     @shipping = Shipping.new
     render "stocks/update.html.erb"
    end
+
+
+   def currentstock
+    @order = Order.find(params[:order_id])
+    @shipping = Shipping.new
+    @stocks = Stock.all
+   end   
 
 
 private

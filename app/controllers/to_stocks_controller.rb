@@ -3,22 +3,27 @@ class ToStocksController < ApplicationController
 
   def index
     @to_stocks = ToStock.all.includes(:stock)
+    @order = Order.find(params[:order_id])
   end
 
-
+  def accepted
+    @to_stocks = ToStock.all.includes(:stock)
+    @order_id = params[:order_id]
+    @stock_id = params[:id]
+  end
 
   def create
-    #binding.pry
+    # binding.pry
   
-   stock_id = ""
+   @stock_id = ""
    config=Config.all
     config.each do |conf|
      if conf[:item_number]==params[:name]
-       stock_id = conf[:id]
+       @stock_id = conf[:id]
      end
     end   
 
-   to_stock = ToStock.new(stock_id: stock_id, to_stock_amount: params[:amount])
+   to_stock = ToStock.new(stock_id: @stock_id, to_stock_amount: params[:amount])
    to_stock.save
 
    stock = Stock.find(to_stock.stock_id)#入庫商品在庫
@@ -32,7 +37,7 @@ class ToStocksController < ApplicationController
       @stock = Stock.find(stock.id)#オーダー商品在庫  viewのモデルオプション指定に必要
     end
   end 
-   render "/to_stocks/create.html.erb"
+  # render "/to_stocks/create.html.erb"
   end
 
 #  private
