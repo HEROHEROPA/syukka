@@ -7,14 +7,19 @@ const form = `<form id="item">
  <input type="submit" value="入庫確認" id="toStock">
 </form>`
 
+const errorMessage = `<div class="error-message" style="color:red">正しい商品名を入力してください！</div>`
 
 function ToStore(){
+  let toStock = "";
   const enter = document.getElementById("to-store-button")
   enter.addEventListener("click",(e)=>{//Javascriptにクリックイベントを認識させる。
     // e.preventDefault();//ブラウザから送信されたクリックイベントをここで無効化する
     // const form = document.getElementById("form")
+
     const enterStock = document.getElementById("items-stock-title")
-    let toStock = "";
+    //let toStock = "";
+
+    if(enterStock.querySelector("div")){enterStock.querySelector("div").remove()}//errorメッセージが表示されていたら取り除く。
 
     const currentFormState = document.getElementsByClassName('item-number')
     if(currentFormState[1].children[1]===undefined){
@@ -25,38 +30,59 @@ function ToStore(){
     else{
      document.querySelector('#item').remove();
     }
+   //})
+   //debugger
 
-   
-     toStock.addEventListener("click",(e)=>{
+   let   formData = {name:"", amount:""}
+   let   haveToStoreAmount = "";
+
+   let   formTag = "";//入庫記入不備有り時のエラーメッセージ格納
+
+    toStock.addEventListener("click",(e)=>{
       e.preventDefault()
       const toStoreName = document.getElementsByClassName("toStoreName") 
       let   toStoreAmount = document.getElementsByClassName("toStoreAmount")//在庫表の入庫数
-
+      
       let   toStockName = document.getElementsByClassName("toStock-name")
       let   toStockAmount = document.getElementsByClassName("toStock-amount")
-
-      let   formData = {name:"", amount:""}
-
-      let  haveToStoreAmount = "";
-
+      
+     
+      
+      
+      
       // console.log(toStockName[0].value)
       // console.log(toStockAmount[0].value)
+      
+    if(toStock!=="" && toStock.value==="入庫確認"){
+      let itemName=false;
       for(let i=0;i<toStoreName.length;i++){
         if(toStockName[0].value===toStoreName[i].innerText){
           toStoreAmount[i].innerText=toStockAmount[0].value
           formData.name = toStoreName[i].innerText;
           formData.amount =  toStoreAmount[i].innerText
           haveToStoreAmount =toStoreAmount[i]
+          itemName =true
+         
+           if(document.getElementsByClassName("error-message").length!==0){document.querySelector('.error-message').remove();}//errormessageが表示されていたら削除する。
+          toStockName[0].value=""
+          toStockAmount[0].value=""
+          toStock.value="実行"
           break
-        }
+        } 
       }
-      toStockName[0].value=""
-      toStockAmount[0].value=""
-     
-      toStock.value="実行"
 
-        if(toStock.value==="実行"){
-          toStock.addEventListener("click",(e)=>{
+         
+        if(itemName===false && toStock.value==="入庫確認" && formTag===""){
+          formTag = document.getElementById("item");
+          formTag.insertAdjacentHTML("beforebegin", errorMessage);
+          toStockName[0].value=""
+          toStockAmount[0].value=""
+        }
+     }
+      // }) 
+      
+      else if(toStock!=="" && toStock.value==="実行"){
+         // toStock.addEventListener("click",(e)=>{
             e.preventDefault();
             console.log(JSON.stringify(formData))
             const XHR = new XMLHttpRequest();
@@ -78,14 +104,12 @@ function ToStore(){
 
             haveToStoreAmount.innerText=""
             XHR.send(formDates) //トークンを含めた状態でデータを送信する。
-            debugger
-          })
-        } 
+         // })
+      } 
 
-     })
-
-
-   } 
-  )
+    })
+  }) 
+    
+  //)
 }
   window.addEventListener('load',ToStore);

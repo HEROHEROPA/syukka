@@ -27,7 +27,23 @@ class ToStocksController < ApplicationController
    to_stock.save
 
    stock = Stock.find(to_stock.stock_id)#入庫商品在庫
-   stock.stock_amount+=to_stock.to_stock_amount
+   
+   conf = Config.find(@stock_id)
+   if conf[:attach]
+    conf[:attach].each do |key,value|
+      value.each do |in_key,in_value|
+        if in_key == :stock_id
+         set = Stock.find(in_value)
+         set.stock_amount+=conf[:attach][key][:item_amount]*to_stock.to_stock_amount#部品構成毎の在庫を追加する。
+         set.save
+        end        
+      end
+    end
+    stock.stock_amount+=to_stock.to_stock_amount
+   else
+    stock.stock_amount+=to_stock.to_stock_amount
+   end
+   #end
    stock.save
    @stocks = Stock.all
    @order = Order.find(params[:order_id])
