@@ -9,7 +9,7 @@ class StocksController < ApplicationController
       @stock = Stock.find(stock.id)
     end
    end 
-  
+   @to_stock= @stock
   end
  
 
@@ -58,6 +58,8 @@ class StocksController < ApplicationController
    def back
     @stocks = Stock.all
     @shipping = Shipping.new
+    @order = Order.find(params[:order_id])
+    @to_stock = Stock.find(params[:id])
     render "stocks/update.html.erb"
    end
 
