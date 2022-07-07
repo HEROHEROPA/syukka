@@ -12,14 +12,19 @@
   <th><%= stock.id %></th>
   <th><%= stock.item_number %></th>
   <th><%= stock.stock_amount %></th> 
+  <%if @error != "" && @order.order_number == stock.item_number %>
+  <th><%= @order.order_amount %></th> 
+  <% end %>
   </tr>
 <% end %>
 </table>
 </div>
 
+<%if @error != "" %>
+ <div style="color:red; font-size:30px"> <%= @error %> </div>
 
-
-<div class="item-number">
+<% else %>
+ <div class="item-number">
     <h2 class="items-sell-title">出荷指示</h2>
     <%= form_with model:[@order,@shipping] ,local: true do |f| %>
     <%# modelオプションはテーブル側に保存するカラムが無いとインスタンスを指定できない。 %>
@@ -27,14 +32,17 @@
       <div class="sell-btn-contents"> 
       <%= f.submit "出荷指示" ,class:"sell-btn" %> 
      </div>
-  <% end %>  
- </div>      
+    <% end %>  
+  </div>  
+<% end %>  
 
-<div class="item-number">
+  <div class="item-number">
       <%# <h2 class="items-sell-title">入庫履歴</h2> %>
      <div class="item-number">
       <%# <h2 class="items-sell-title">入庫履歴</h2> %>
-<button><%= link_to "入庫履歴ページ", "/orders/#{@order.id}/stocks/#{@to_stock.id}/to_stocks", method: :get %></button>
+  <button><%= link_to "入庫履歴ページ", "/orders/#{@order.id}/stocks/#{@to_stock.id}/to_stocks", method: :get %></button>
       
-</div> 
-    </div> 
+  </div> 
+      </div> 
+
+  

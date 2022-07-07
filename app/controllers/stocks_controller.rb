@@ -4,6 +4,7 @@ class StocksController < ApplicationController
    @stocks = Stock.all
    @order = Order.find(params[:order_id])
    @stock = ""
+   @error = ""
    @stocks.each do |stock|
     if stock.item_number==@order.order_number
       @stock = Stock.find(stock.id)
@@ -26,13 +27,20 @@ class StocksController < ApplicationController
     end 
    end
    
+   @error =""
+
    if r=='' && l==''
-    zaiko = stock.stock_amount-@order.order_amount
+    #zaiko = stock.stock_amount-@order.order_amount
+    stock.stock_amount -= @order.order_amount
+    zaiko = stock
     @stock3 = Stock.find(3)
+   
+     unless zaiko.valid?
+       @error ="在庫不足です!"
+     end  
+   #   if stock.stock_amount < @stock3.stock_amount
     @stock= stock.update(item_number:stock.item_number,stock_amount:zaiko,item_image:stock.item_image,confirm_point:stock.confirm_point)
-     if zaiko < @stock3.stock_amount
-        @stock3.update(item_number:@stock3.item_number,stock_amount:zaiko,item_image:@stock3.item_image,confirm_point:@stock3.confirm_point)
-     end
+    @stock3.update(item_number:@stock3.item_number,stock_amount:zaiko,item_image:@stock3.item_image,confirm_point:@stock3.confirm_point)
     @stocks = Stock.all
     @shipping = Shipping.new
    elsif Stock.find(3).stock_amount>=@order.order_amount
@@ -45,14 +53,15 @@ class StocksController < ApplicationController
       @stock2=stock2.update(item_number:r[:item_number],stock_amount:zaiko2,item_image:stock2.item_image,confirm_point:stock2.confirm_point)
       @stock3=stock3.update(item_number:l[:item_number],stock_amount:zaiko3,item_image:stock3.item_image,confirm_point:stock3.confirm_point)
       @stocks = Stock.all
-     @shipping = Shipping.new 
+      @shipping = Shipping.new 
    else 
+      @error ="在庫不足です!"
       @stocks = Stock.all
       @shipping = Shipping.new
    end 
-  #  render  "orders/index"
-  @to_stock= stock
-   end
+    #  render  "orders/index"
+    @to_stock= stock
+  end
    
    
    def back
@@ -60,6 +69,11 @@ class StocksController < ApplicationController
     @shipping = Shipping.new
     @order = Order.find(params[:order_id])
     @to_stock = Stock.find(params[:id])
+    
+    if  @to_stock.stock_amount<@order.order_amount
+      @error ="在庫不足です!"
+    end  
+
     render "stocks/update.html.erb"
    end
 
