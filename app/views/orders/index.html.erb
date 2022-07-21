@@ -15,9 +15,14 @@
 </div>    
 
 <div >
- <%=image_tag @stock.item_image ,class:"image"%>
- <h1><%=@stock.item_number%></h1>
+ <%=image_tag @stocks[0].item_image ,class:"image"%>
+ <h1><%=@stocks[0].item_number%></h1>
 </div>
 
+<div hidden>
+<% @stocks.each do |stock| %>
+<%=image_tag stock.item_image ,class:"image"%> 
+ <% end %> 
+</div>
 
 </div>
