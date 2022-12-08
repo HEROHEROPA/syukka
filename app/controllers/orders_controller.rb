@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
 
 def index
+  
   @order = Order.new
  # @stock = Stock.find(1)
   @stocks = Stock.all
