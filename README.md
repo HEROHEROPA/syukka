@@ -83,3 +83,21 @@ Things you may want to cover:
 ### Association
 
 -belongs_to :stock
+
+
+
+概要 
+オリジナルに作成したアプリケーションを紹介します。 
+アプリケーション情報 
+アプリケーション概要 
+出荷品が画像でわかる様な簡単な出荷指示アプリを作成しました。 
+● 接続先情報 
+■ https://syukka.onrender.com
+● Githubリポジトリ 
+■ https://github.com/HEROHEROPA/syukka 
+● 開発環境 
+○ Ruby/Ruby on Rails/MySQL/Github/Visual Studio Code/JavaScript 
+● 開発期間と平均作業時間 
+○ 開発期間：5/25〜7/14現在(実働12日間) 
+○ 1日あたりの平均作業時間：6 
+○ 合計：72時間 
